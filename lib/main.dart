@@ -33,9 +33,10 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
-    var favorites = <WordPair>[];
 
-   void toggleFavorite() {
+  var favorites = <WordPair>[];
+
+  void toggleFavorite() {
     if (favorites.contains(current)) {
       favorites.remove(current);
     } else {
@@ -45,18 +46,27 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  var selectedIndex = 0; 
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    Widget page;
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        page = Placeholder();
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
     return Scaffold(
       body: Row(
         children: [
@@ -66,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               destinations: [
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
-                  
+
                   label: Text('Home'),
                 ),
                 NavigationRailDestination(
@@ -79,14 +89,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   selectedIndex = value;
                 });
-
               },
             ),
           ),
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
-              child: GeneratorPage(),
+              child: page,
             ),
           ),
         ],
