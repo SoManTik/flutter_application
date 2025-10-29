@@ -33,7 +33,6 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
-
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -197,7 +196,7 @@ class FavoritesPage extends StatelessWidget {
             '${appState.favorites.length} favorites:',
           ),
         ),
-        
+
 
         for (var pair in appState.favorites)
           ListTile(
